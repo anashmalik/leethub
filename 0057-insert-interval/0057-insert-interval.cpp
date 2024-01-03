@@ -4,6 +4,8 @@ public:
         int m=inv.size(),i;
         if(inv.size()==0){inv.insert(inv.begin(),ni);
         return inv; }
+        if(ni[1]<inv[0][0]){inv.insert(inv.begin(),ni);
+        return inv; }
         if(ni[0]>inv[inv.size()-1][1]){
             inv.push_back(ni);
             return inv; 
