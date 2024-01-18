@@ -3,10 +3,10 @@ public:
     int climbStairs(int n) {
         int a=0,b=1,sum=0;
     for(int i=0;i<n;i++){
-        sum=a+b;
-        a=b;
-        b=sum;
+        b=a+b;
+        a=b-a;
+        
     }
-    return sum;
+    return b;
     }
 };
