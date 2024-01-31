@@ -11,7 +11,7 @@ public:
                     t+=ans[t];
                 }
                 if(temp[i]<temp[t])ans[i]=t-i;
-                else ans[i]=0;
+                
             }
         }
        return ans; 
