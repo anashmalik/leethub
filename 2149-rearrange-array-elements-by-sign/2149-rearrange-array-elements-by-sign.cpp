@@ -12,6 +12,8 @@ public:
             ans.push_back(po[i]);
             ans.push_back(neg[i]);
         }
+        po.clear();
+        neg.clear();
         return ans;
     }
 };
