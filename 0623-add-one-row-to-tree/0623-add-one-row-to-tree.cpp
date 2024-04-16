@@ -22,14 +22,10 @@ public:
     void help(TreeNode* root, int& val, int depth){
         if(!root)return;
         if(depth==1){
-         //   if(root->left){
                 TreeNode* r=new TreeNode(val,root->left,NULL);
                 root->left=r;
-          //  }
-            //if(root->right){
                 TreeNode* rr=new TreeNode(val,NULL,root->right);
                 root->right=rr;
-            // }
         }
         help(root->left,val,depth-1);
         help(root->right,val,depth-1);
