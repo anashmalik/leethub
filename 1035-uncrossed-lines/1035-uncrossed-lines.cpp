@@ -11,8 +11,8 @@ public:
         if(nums1[i]==nums2[j]){
             t=max(t,help(nums1,nums2,i+1,j+1,dp)+1);
         }
-        t=max(t,help(nums1,nums2,i,j+1,dp));
-        t=max(t,help(nums1,nums2,i+1,j,dp));
+      else { t=max(t,help(nums1,nums2,i,j+1,dp));
+        t=max(t,help(nums1,nums2,i+1,j,dp));}
         return dp[i][j]=t;
     }
 };
