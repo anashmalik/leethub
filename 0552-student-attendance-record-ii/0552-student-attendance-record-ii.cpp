@@ -2,7 +2,8 @@ class Solution {
 public:
     int mod =1e9+7;
     int checkRecord(int n) {
-       vector<vector< vector<int>>>dp(n,vector<vector<int>>(4,vector<int>(2,-1)));
+       static vector<vector< vector<int>>>dp(n,vector<vector<int>>(4,vector<int>(2,-1)));
+        // cout<<dp[n-1][0][0]<<endl;
       return  help(n,0,0,dp); 
     }
     int help(int n,int a,int l,vector<vector< vector<int>>>&dp){
