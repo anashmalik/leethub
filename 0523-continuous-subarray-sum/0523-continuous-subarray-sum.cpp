@@ -1,15 +1,21 @@
 class Solution {
 public:
-    bool checkSubarraySum(vector<int>& nums, int l) {
-        if(nums.size()==1)return 0;
-        long sum=0;
-        for(int i=0;i<nums.size();i++){
-            long sum=nums[i];
-            for(int k=i+1;k<nums.size();k++){
-                sum+=nums[k];
-                if((sum % l)==0)return 1;
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        int n = nums.size();
+        unordered_map<int, int> remainderMap;
+        int cumulativeSum = 0;
+        remainderMap[0] = -1;
+        for (int i = 0; i < n; i++) {
+            cumulativeSum += nums[i];
+            int remainder = k == 0 ? cumulativeSum : cumulativeSum % k;
+            if (remainderMap.count(remainder)) {
+                if (i - remainderMap[remainder] > 1) {
+                    return true;
+                }
+            } else {
+                remainderMap[remainder] = i;
             }
         }
-        return 0;
+        return false;
     }
 };
