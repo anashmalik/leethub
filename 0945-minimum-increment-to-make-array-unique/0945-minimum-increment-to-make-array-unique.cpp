@@ -1,20 +1,22 @@
 class Solution {
 public:
     int minIncrementForUnique(vector<int>& nums) {
-        vector<int>a(100001,0);
-        int ans=0,t=0;
+        // return 0;
+        vector<int>a(1000000,0);
+        long  ans=0;
+        int t=0,mod=1e9+7;
         for(auto x:nums)a[x]++;
-        for(int i=0;i<100001;i++){
+        for(int i=0;i<1000000;i++){
             if(a[i]>1){
                 t=max(t,i)+1;
                 while(a[i]>1){
 
-                    while(true){
+                    while(t<1000000){
                         // cout<<t<<endl;
-                        if(t<100001 and a[t]==0){
+                        if(a[t]==0){
                             a[t]=1;
                             // cout<<a[t-1];
-                            ans+=t-i;
+                            ans=(ans+t-i)%mod;
                             break;
                         }
                         t++;
