@@ -1,51 +1,54 @@
 class Solution {
 public:
-    vector<int> survivedRobotsHealths(vector<int>& p, vector<int>& h, string d) {
-        
-        int l=0,r=0;
-        for(auto x:d ){
-            if(x=='L')l++;
-            else r++;
+    vector<int> survivedRobotsHealths(vector<int>& positions, vector<int>& healths, string directions) {
+        int n = positions.size();
+        vector<vector<int>> robots;
+
+        for (int i = 0; i < n; ++i) {
+            robots.push_back({positions[i], healths[i], directions[i], i});
         }
-        if(l==0 or r==0)return h;
-        vector<pair<int,pair<char,pair<int,int>>>>pa;
-        for(int i=0;i<p.size();i++){
-            pa.push_back({p[i],{d[i],{i,h[i]}}});
-        }
-        sort(pa.begin(),pa.end());
-        // for(auto x:pa)cout<<x.first<<endl;
-        int f=1;
-        for(int i=1;i<pa.size();i++){
-            cout<<i<<" "<<pa.size()<<endl;
-            if(pa[i-1].second.first=='R' and pa[i].second.first=='L' and f){
-                if(pa[i-1].second.second.second<pa[i].second.second.second){
-                    pa[i].second.second.second--;
-                    pa.erase(pa.begin()+i-1);
-                    i=max(0,i-2);
-                    // cout<<"rtyui";
+
+        sort(robots.begin(), robots.end());
+
+        vector<vector<int>> stack;
+
+        for (auto& robot : robots) {
+            if (robot[2] == 'R' || stack.empty() || stack.back()[2] == 'L') {
+                stack.push_back(robot);
+                continue;
+            }
+
+            if (robot[2] == 'L') {
+                bool add = true;
+                while (!stack.empty() && stack.back()[2] == 'R' && add) {
+                    int last_health = stack.back()[1];
+                    if (robot[1] > last_health) {
+                        stack.pop_back();
+                        robot[1] -= 1;
+                    } else if (robot[1] < last_health) {
+                        stack.back()[1] -= 1;
+                        add = false;
+                    } else {
+                        stack.pop_back();
+                        add = false;
+                    }
                 }
-                else if(pa[i-1].second.second.second>pa[i].second.second.second){
-                    pa[i-1].second.second.second--;
-                    pa.erase(pa.begin()+i);
-                    i=max(0,i-2);
-                    // cout<<"hgjhg";
-                }
-                else{
-                     pa.erase(pa.begin()+i-1);
-                     pa.erase(pa.begin()+i-1);
-                    i=max(0,i-2);
-                    // cout<<"===="<<i<<pa.size();
-                    // f=0;
+
+                if (add) {
+                    stack.push_back(robot);
                 }
             }
         }
-        vector<pair<int,int>>dd;
-        for(auto x:pa){
-            dd.push_back(x.second.second);
+
+        vector<int> result;
+        sort(stack.begin(), stack.end(), [](vector<int>& a, vector<int>& b) {
+            return a[3] < b[3];
+        });
+
+        for (auto& robot : stack) {
+            result.push_back(robot[1]);
         }
-        sort(dd.begin(),dd.end());
-        h.clear();
-        for(auto x:dd)h.push_back(x.second);
-        return h;
+
+        return result;
     }
 };
