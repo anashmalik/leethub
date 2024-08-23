@@ -33,7 +33,7 @@ public:
             cout<<ans[0][i]<<" "<<ans[1][i]<<endl;
             sum+=(ans[0][i]*(s/ans[1][i]));
         }
-        int t=min(sum,s);
+        int t=min(abs(sum),abs(s));
         int d=2;
         while(d<=sqrt(t)){
             if(sum%d==0 and s%d==0){
