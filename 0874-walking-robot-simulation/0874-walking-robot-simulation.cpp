@@ -10,6 +10,7 @@ public:
             if(x==-1){
                 t+=1;
                 t%=4;
+                if(t==0)t=4;
             }
             else if(x==-2){
                 // cout<<t; 
@@ -60,6 +61,7 @@ public:
             }
             ans=max(ans,a[0]*a[0]+a[1]*a[1]);
         // cout<<a[0]<<" "<<a[1]<<" "<<t<<endl;
+        // cout<<ans<<endl;
         }
         return ans;
     }
